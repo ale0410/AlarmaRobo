@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "app3alarma"
+  },
+  "targets": {
+    "app3alarma": {
+      "hosting": {
+        "app": [
+          "app3alarma"
+        ]
+      }
+    }
+  }
+}

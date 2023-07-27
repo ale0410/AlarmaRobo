@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-fab horizontal="start" slot="start">
+      <ion-fab-button (click)="Salir()">
+        <ion-icon name="power-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button expand="full" [color]="activado ? 'danger' : 'success'" (click)="activado ? stop() : start()">
+    <ion-icon *ngIf="!activado" name="notifications-off-outline" slot="icon-only"></ion-icon>
+    <ion-icon *ngIf="activado" name="notifications-outline" slot="icon-only"></ion-icon>
+  </ion-button>
+  <input type="text" [(ngModel)]="pass" *ngIf="activado">
+  <div full>
+    <h1>X: {{x}}</h1>
+  </div>
+  <div full>
+    <h1>Y: {{y}}</h1>
+  </div>
+  <div full>
+    <h1>Z: {{z}}</h1>
+  </div>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col size="4" size-lg size="12" size-sm>
+        <ion-card class="myAnim login card">
+          <ion-card-content>
+            <div align="center">
+              <form [formGroup]="loginForm">
+                <ion-input *ngIf="activado" placeholder="Clave" type="password" class="pass" formControlName="password"></ion-input>
+                <div *ngIf="spinner" class="ion-margin-top ion-text-right forget">
+                  <ion-progress-bar type="indeterminate" color="success" class="spinner"></ion-progress-bar>
+                </div>
+                  <div class="p" *ngIf="formControls.password.errors?.['required'] && activado">
+                    INGRESAR CLAVE PARA DESACTIVAR LA ALARMA
+                  </div>
+                  <div *ngIf="!activado" class="p">
+                    LA ALARMA ESTÁ DESACTIVADA. OPRIMIR EL BOTÓN PARA ACTIVAR LA ALARMA
+                  </div>
+                  <hr><hr>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col class="lock">
+                        <hr><hr>
+                        <ion-button *ngIf="!activado" expand="full" (click)="start()" class="alarma"></ion-button>
+                        <ion-button *ngIf="activado" expand="full" (click)="stop(loginForm.value)" class="alarma2"></ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+              </form>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+</ion-content>
