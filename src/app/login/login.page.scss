@@ -4,7 +4,9 @@
 
 #idForm{
     background-color: #411d1e;
-    padding: 118px 40px;
+    width: 330px;
+    height: 400px;
+    padding: 78px 30px;
 }
 
 #idFound{
@@ -23,3 +25,55 @@
 ion-icon{
     background-color: #7d7d07;
 }
+
+ion-list{
+    background-color: rgb(23, 40, 169);
+
+    .ion-item{
+        background-color: rgb(8, 107, 97);
+    }
+}
+
+
+ion-input{
+    background-color: yellowgreen;
+}
+
+ion-button{
+    width: 250px;
+    height: 100px;
+    padding: 1px;
+}
+
+.ion-padding-start{
+    background-color: pink;
+}
+
+#header{
+    height: 33%;
+    background: #2b879e;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    padding: 40px 20px;
+
+    #app-bar{
+      height: 60px;
+      align-items: center;
+
+      #logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+        border-radius: 50%;
+        width: 90px; 
+        height: 90px;
+        align-items: center; 
+        }
+      }
+    }
+  }
+
