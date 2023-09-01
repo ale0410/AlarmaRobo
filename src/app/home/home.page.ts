@@ -5,6 +5,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { AuthService } from '../providers/auth/auth.service';
 import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 
 //import { userDb } from '../interfaces/users'
 
@@ -19,173 +20,149 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  activado = false;
-  pass!:string;
+  fondoColor = 'green';
+  imgCandado = '../../assets/images/candadoCerrado.png';
+  encedido = false;
+  subscription: any;
+  x:string;
+  y:string;
+  z:string;
+  timeSpam:string;
+  public isLeft: any;
+  public isRight: any;
+  public isVertial: any;
+  public isHorizontal: any;
+  // posicion:posiciones;
 
-  error: any;
-  ok: any;
-
-  spinner = false;
-
-  x:number;
-  y:number;
-  z:number;
-
-  id: any;
-
-  izquierda: any;
-  derecha : any;
-  vertical : any;
-  horizontal : any;
-
-  count1 = 0;
-  count2 = 0;
-  count3 = 0;
-  count4 = 0;
-
-  flag:any;
-
-
-  /* Constructor de home*/
-  constructor(private deviceMotion : DeviceMotion, private flashlight: Flashlight, private vibration: Vibration, private AuthSvc: AuthService, private router: Router) {
-    this.x = 0;
-    this.y = 0;
-    this.z = 0;
+  constructor(
+    private router: Router, 
+    private loginService: AuthService,
+    private deviceMotion: DeviceMotion,
+    private vibration: Vibration,
+    private flashlight: Flashlight,
+    public modalCtrl: ModalController,
+    private alertController: AlertController
+  ) { 
+    this.x=".";
+    this.y=".";
+    this.z=".";
+    this.timeSpam="-";
+    this.isLeft = false;
+    this.isRight = false;
+    this.isVertial = false;
+    this.isHorizontal = true;
   }
 
-  start() {
+  async activarAlarma(){
 
-    this.activado = true;
-    
-    try {
+    this.encedido = (this.encedido) ? false : true;
 
-      var option: DeviceMotionAccelerometerOptions =
-      {
-        frequency: 200
-      };
+    if(this.encedido){
+      this.imgCandado = '../../assets/images/candadoAbierto.png';
+      this.fondoColor = 'danger';
+      this.start()
+    }else{
 
-      this.id = this.deviceMotion.watchAcceleration(option).subscribe((acc: DeviceMotionAccelerationData) => {
-        this.x = Math.round(acc.x); // 5
-        this.y = Math.round(acc.y);
-        this.z = Math.round(acc.z);
-        
-
-        // Horizontal
-        if((this.x > 5 && (this.y == 0 || this.y == -1 || this.y == -2 || this.y == 1 || this.y == 2) && this.count2 == 0) || (this.x < -5 && (this.y == 0 || this.y == -1 || this.y == -2 || this.y == 1 || this.y == 2) && this.count2 == 0)){
-          this.count2 = 1;
-          this.vibration.vibrate(5000);
-          this.horizontal = new Audio("../../assets/horizontal.mp3");
-          this.horizontal.play();
-
-          setTimeout(()=>{this.horizontal.stop();},5000);
-          
-        } else if((this.x > -5 && this.x < 5) && (this.y == -1 || this.y == 0 || this.y == 1)){this.count2 = 0;}
-
-
-
-        //Verical
-        if((this.y > 5 && (this.x == 0 || this.x == -1 || this.x == 1) && this.count1 == 0) || (this.y < -5 && (this.x == 0 || this.x == -1 || this.x == 1) && this.count1 == 0)){
-          this.count1 = 1;
-          this.vertical = new Audio("../../assets/vertical.mp3");
-          this.vertical.play();
-
-          this.flashlight.switchOn();
-          setTimeout(()=>{
-            this.flashlight.switchOff();
-          }, 5000);
-          
-
-        } else if((this.y > -6 && this.y < 6) && (this.x == 0 || this.x == -1 || this.x == 1)){this.count1 = 0;}
-
-
-
-        //Izquierda
-        if((this.y > 5 && this.x > 2 && this.count3 == 0) || (this.y < -5 && this.x < -2 && this.count3 == 0)){
-          this.count3 = 1;
-          this.izquierda = new Audio("../../assets/izquierda.mp3");
-          this.izquierda.play();
-          
-        }else if(((this.y <= 6 && this.y > -1) && (this.x < 2 && this.x > -1)) || ((this.y >= -6 && this.y < 1)) && (this.x > 2 && this.x < 1)){this.count3 = 0;}
-
-
-
-        //Derecha OK
-        if((this.y > 5 && this.x < -2 && this.count4 == 0) || (this.y < -5 && this.x > 2 && this.count4 == 0)){
-          this.count4 = 1;
-          this.derecha = new Audio("../../assets/derecha.mp3");
-          this.derecha.play();
-          
-        }else if(((this.y <= 6 && this.y > -1) && (this.x > -2 && this.x < 1)) || ((this.y >= -6 && this.y < 1)) && (this.x < 2 && this.x > -1)){this.count4 = 0;}
-
-      }
-      );
-
-    } catch (error) {
-      alert("Error: " + error);
-    }
-  }
-
-  /* async stop(FormValue: any) {
-    if(this.loginForm.valid){
-      this.spinner = true;
-      this.flag = await this.AuthSvc.getUser().subscribe(val =>{
-        var d: any;
-        d = val;
-    
-        if(FormValue.password == d.clave){
-          setTimeout(()=>{this.spinner = false;},2000);
-          this.activado = false;
-          this.ok = new Audio("/assets/ok.wav");
-          this.ok.play();
-          this.flag.unsubscribe();
-          this.id.unsubscribe();
-        } else {
-          setTimeout(()=>{this.spinner = false;},2000);
-          this.error = new Audio("/assets/error.mp3");
-          this.error.play();
-          this.flag.unsubscribe();
-        }
-        
+      const alert = await this.alertController.create({ 
+        header: 'Ingrese su contraseña',
+        inputs: [{ name: 'password', type: 'password', placeholder: 'Contraseña'}],
+        buttons: [{text: 'Cancelar', handler: async () => {this.encedido = true} }, {text: 'Confirmar', handler: async (data) => {this.confirmarPassword(data.password)}}],
+        cssClass: 'my-custom-class', 
+        backdropDismiss: false,
       });
-
-    } else {
-      this.error = new Audio("/assets/error.mp3");
-      this.error.play();
-    }
-    
-  } */
-
-  async stop(){ /* La funcion de parar la alarma que en el momento pide contraseña para frenarla*/
-    
-      this.spinner = true;
       
-      if(this.pass == "123456"){
-        setTimeout(()=>{this.spinner = false;},2000);
-        this.activado = false;
-        this.ok = new Audio("../../assets/ok.mp3");
-        this.ok.play();
-        this.flag.unsubscribe();
-        this.id.unsubscribe();
-      } else {
-        setTimeout(()=>{this.spinner = false;},2000);
-        this.error = new Audio("../../assets/error.mp3");
-        this.error.play();
-        this.flag.unsubscribe();
+      await alert.present();
+    }
+  }
+  async confirmarPassword(password: string){
+    const enteredPassword = password;
+    if (enteredPassword === '123456'){
+      if(this.subscription){
+        this.imgCandado = '../../assets/images/candadoCerrado.png';
+        this.fondoColor = 'green';
+        this.subscription.unsubscribe();
       }
-
-    
+    }else{
+      const incorrectPasswordAlert = await this.alertController.create({
+        header: 'Contraseña incorrecta',
+        message: 'La alarma seguirá activada.',
+        buttons: ['Aceptar'],   
+        cssClass: 'my-custom-class', 
+        backdropDismiss: false,
+      });
+      this.flashlight.switchOn();
+      this.playAudio('dios.m4a');
+      this.vibration.vibrate(5000);
+      setTimeout(() => this.flashlight.switchOff(), 5000);
+      setTimeout(() => this.playAudio('dios.m4a') , 5000);
+      await incorrectPasswordAlert.present();
+    }
   }
 
-  async Salir(){ /* Va derecho al Login*/
-    
-    if(this.flag !== undefined){this.flag.unsubscribe();}
-
-    if(this.id !== undefined){await this.id.unsubscribe();}
-    this.spinner = true;
-    setTimeout(()=>{this.spinner = false;},2000);
-    //await this.AuthSvc.logout();
-    this.router.navigate(['/login']);
+  logout(){
+    this.loginService.signOut().then(() => {
+      this.router.navigate(['/login']);
+    });
   }
+  async start() {
+    let isPlaying = false; 
+    let currentAudio: HTMLAudioElement | null = null; 
+    // Inicia la escucha de los eventos del Device Motion
+    this.subscription = this.deviceMotion.watchAcceleration({ frequency: 200 }).subscribe(
+      async (acceleration: DeviceMotionAccelerationData) => {
+        // Obtén los valores de aceleración en los ejes x, y, z
+        
+        const x = acceleration.x;
+        const y = acceleration.y;
+        const z = acceleration.z;
+       
+          // Movimiento hacia la izquierda
+          if (acceleration.x >= 2 && !this.isLeft) {
+            this.isLeft = true;
+            this.isRight = false;
+            this.playAudio('hurtando.m4a');
+          } 
+           // Movimiento hacia la derecha
+          if (acceleration.x <= -2 && !this.isRight) {
+            this.isRight = true;
+            this.isLeft = false;
+             this.playAudio('epa.m4a');
+          }
+
+          // Movimiento vertical
+          if (acceleration.y > 8 && acceleration.z  < 2 && !this.isVertial && await this.flashlight.available()) {
+            // Dispositivo en posición vertical
+            this.isVertial = true;
+            this.isHorizontal = false;
+            this.flashlight.switchOn();
+            this.playAudio('dejalo.m4a');
+            setTimeout(() => this.flashlight.switchOff(), 5000);
+          } 
+          if(acceleration.y < 2 && acceleration.z  > 8 && !this.isHorizontal) {
+            // Dispositivo en posición horizontal
+            this.isHorizontal = true;
+            this.isVertial = false;
+            this.vibration.vibrate(5000);
+            this.playAudio('dios.m4a');
+          }
+      }
+    );
+  }
+
+  async  playAudio(audioFile: string) {
+    await this.delay(3000);
+    const audio = new Audio('../../assets/audio/'+ audioFile);
+    audio.play();
+  }
+  async  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  // async mostrarModalContraseña() {
+  //   const modal = await this.modalCtrl.create({
+  //     // component: TuComponenteModal,
+
+  //   })
+  // }
   
 
 }
