@@ -7,14 +7,14 @@
       {{error}}
     </div>
   
-    <div id="header">
+    <!-- <div id="header">
       <div id="app-bar">
         <div id="logo">
           <img alt="icono" src="../../assets/icon/alarmaProseg.png"/>
         </div>
         <div></div>
       </div>
-    </div>
+    </div> -->
 
       <form *ngIf="!spinner" #loginForm="ngForm" novalidate>
         <div id="idForm">
@@ -56,7 +56,7 @@
             </ion-col>
           </ion-row>
       
-          <ion-fab vertical="center" horizontal="end" slot="fixed">
+          <!-- <ion-fab vertical="center" horizontal="end" slot="fixed">
             <ion-fab-button>
               <ion-icon name="chevron-forward"></ion-icon>
             </ion-fab-button>
@@ -82,7 +82,49 @@
                 <ion-icon name="person" (click)="tester()"></ion-icon>
               </ion-fab-button>
             </ion-fab-list>
-          </ion-fab>
+          </ion-fab> -->
+
+          <ion-chip>
+            <ion-avatar (click)="admin()">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>Admin</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+          <ion-chip>
+            <ion-avatar (click)="invitado()">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>Invitado</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+          <ion-chip>
+            <ion-avatar (click)="usuario()">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>Usuario</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+          <ion-chip>
+            <ion-avatar (click)="anonimo()">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>Anonimo</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+          <ion-chip>
+            <ion-avatar (click)="tester()">
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>Tester</ion-label>
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-chip>
+          
+          <!-- <ion-chip>
+            <ion-icon name="pin" color="primary"></ion-icon>
+            <ion-label>Icon Chip</ion-label>
+            <ion-icon name="close"></ion-icon>
+          </ion-chip> -->
   
         </div>
       </form>

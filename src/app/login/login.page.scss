@@ -3,9 +3,9 @@
 }
 
 #idForm{
-    background-color: #411d1e;
+    background-image: url('../../assets/images/orangered.jpg');
     width: 330px;
-    height: 400px;
+    height: 500px;
     padding: 78px 30px;
 }
 
@@ -27,27 +27,31 @@ ion-icon{
 }
 
 ion-list{
-    background-color: rgb(23, 40, 169);
-
-    .ion-item{
-        background-color: rgb(8, 107, 97);
-    }
+    background-color: orange;
+    font: italic;
 }
 
 
 ion-input{
-    background-color: yellowgreen;
+    background-color: rgb(247, 247, 168);
 }
 
 ion-button{
     width: 250px;
     height: 100px;
     padding: 1px;
+    color: black;
+    font-size: large;
 }
 
 .ion-padding-start{
     background-color: pink;
 }
+
+ion-chip {
+    --background: orange;
+    --color: black;
+  }
 
 #header{
     height: 33%;
