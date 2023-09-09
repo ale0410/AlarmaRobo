@@ -22,7 +22,7 @@ export class LoginPage {
   onLogin(form: NgForm) { /* Esta es la función onLogin */
      this.submitted = true;
      if (form.valid) { /* Pregunta si el NgForm es válido */
-       this.spinner = true; /* Pone el spinner como true */
+      //  this.spinner = true; //
        this.auth.signIn(form.form.value.email, form.form.value.password) /* Llama a la funcion signIn de AuthService */
          .then(() => {
               this.router.navigateByUrl('/home'); /* Va directo a la página de home*/

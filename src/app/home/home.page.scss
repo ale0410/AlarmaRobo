@@ -15,9 +15,12 @@ ion-content{
   --background:rgb(28, 196, 28);
 }
 ion-toolbar{
-  --background:#cc0f18;
+  --background: url('../../assets/images/rojo.jpg');
   color: aliceblue;
 }
+// ion-header{
+//   background-image: url('../../assets/images/rojo.jpg');
+// }
 .fab-image{
   width: 40px; /* Ajusta el valor según el tamaño deseado */
   height: 40px;
