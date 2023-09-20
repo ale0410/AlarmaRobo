@@ -24,6 +24,7 @@ import { AuthService } from './providers/auth/auth.service';
 import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion/ngx';
 import { Flashlight } from '@ionic-native/flashlight/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
@@ -53,6 +54,7 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
     DeviceMotion,
     Flashlight,
     Vibration,
+    ScreenOrientation,
     AngularFirestoreModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

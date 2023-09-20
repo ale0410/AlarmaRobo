@@ -2,7 +2,7 @@
     color : rgb(218, 201, 201);
 }
 
-#idForm{
+form{
     background-image: url('../../assets/images/orangered.jpg');
     width: 330px;
     height: 500px;
@@ -26,9 +26,8 @@ ion-icon{
     background-color: #7d7d07;
 }
 
-ion-list{
-    background-color: orange;
-    font: italic;
+ion-item{
+    --background: rgb(250, 225, 86);
 }
 
 
@@ -46,6 +45,13 @@ ion-button{
 
 .ion-padding-start{
     background-color: pink;
+}
+
+ion-title{
+    background-color: orange;
+    font-variant-position: center;
+    font-size: large;
+    width: 330px;
 }
 
 ion-chip {

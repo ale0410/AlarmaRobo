@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { DeviceMotion, DeviceMotionAccelerationData, DeviceMotionAccelerometerOptions } from '@ionic-native/device-motion/ngx';
 import { Flashlight } from '@ionic-native/flashlight/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { AuthService } from '../providers/auth/auth.service';
 import { Router } from '@angular/router';
@@ -40,6 +41,7 @@ export class HomePage {
     private deviceMotion: DeviceMotion,
     private vibration: Vibration,
     private flashlight: Flashlight,
+    private screenOrientation: ScreenOrientation,
     public modalCtrl: ModalController,
     private alertController: AlertController
   ) { 
@@ -147,6 +149,10 @@ export class HomePage {
           }
       }
     );
+  }
+
+  lockOrientation() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
 
   async  playAudio(audioFile: string) {
