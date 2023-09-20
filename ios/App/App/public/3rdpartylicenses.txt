@@ -114,6 +114,9 @@ MIT
 @ionic-native/flashlight
 MIT
 
+@ionic-native/screen-orientation
+MIT
+
 @ionic-native/splash-screen
 MIT
 
