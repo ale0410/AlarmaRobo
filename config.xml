@@ -1,6 +1,6 @@
 <platform name="android">
      <preference name="orientation" value="portrait" />
-     <splash src="src/assets/danger-alert.gif" />
+     <splash src="src/assets/icon/alarma.png" />
          <preference name="SplashScreenDelay" value="6000" />
      </splash>
      

@@ -117,3 +117,21 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.custom-splash {
+  background-color: rgba(170, 3, 3, 0.86); /* Cambia el color de fondo según tus preferencias */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
