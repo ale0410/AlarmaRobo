@@ -27,11 +27,11 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
-
+import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SplashScreenComponent],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,

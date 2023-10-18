@@ -33,6 +33,10 @@ export class HomePage {
   public isRight: any;
   public isVertial: any;
   public isHorizontal: any;
+  public audioDios;
+  public audioHurtando;
+  public audioEpa;
+  public audioDejalo;
   // posicion:posiciones;
 
   constructor(
@@ -53,6 +57,10 @@ export class HomePage {
     this.isRight = false;
     this.isVertial = false;
     this.isHorizontal = true;
+    this.audioDios = new Audio('../../assets/audio/dios.m4a');
+    this.audioHurtando = new Audio('../../assets/audio/hurtando.m4a');
+    this.audioEpa = new Audio('../../assets/audio/epa.m4a');
+    this.audioDejalo = new Audio('../../assets/audio/dejalo.m4a');
   }
 
   async activarAlarma(){
@@ -93,19 +101,29 @@ export class HomePage {
         backdropDismiss: false,
       });
       this.flashlight.switchOn();
-      this.playAudio('dios.m4a');
+      //this.playAudio('dios.m4a');
       this.vibration.vibrate(5000);
       setTimeout(() => this.flashlight.switchOff(), 5000);
-      setTimeout(() => this.playAudio('dios.m4a') , 5000);
+      setTimeout(() => this.reproducirNuevoAudio('../../assets/audio/dios.m4a') , 5000);
       await incorrectPasswordAlert.present();
     }
   }
+
+  async reproducirNuevoAudio(nuevaRuta:any) {
+    if (!this.audioDios.paused) {
+        this.audioDios.pause();
+        this.audioDios.currentTime = 0; // Reinicia la reproducción al principio
+    }
+    this.audioDios.src = nuevaRuta;
+    this.audioDios.play();
+}
 
   logout(){
     this.loginService.signOut().then(() => {
       this.router.navigate(['/login']);
     });
   }
+
   async start() {
     let isPlaying = false; 
     let currentAudio: HTMLAudioElement | null = null; 
@@ -122,13 +140,15 @@ export class HomePage {
           if (acceleration.x >= 2 && !this.isLeft) {
             this.isLeft = true;
             this.isRight = false;
-            this.playAudio('hurtando.m4a');
+            //this.playAudio('hurtando.m4a');
+            this.reproducirNuevoAudio('../../assets/audio/hurtando.m4a');
           } 
            // Movimiento hacia la derecha
           if (acceleration.x <= -2 && !this.isRight) {
             this.isRight = true;
             this.isLeft = false;
-             this.playAudio('epa.m4a');
+             //this.playAudio('epa.m4a');
+             this.reproducirNuevoAudio('../../assets/audio/epa.m4a');
           }
 
           // Movimiento vertical
@@ -137,7 +157,8 @@ export class HomePage {
             this.isVertial = true;
             this.isHorizontal = false;
             this.flashlight.switchOn();
-            this.playAudio('dejalo.m4a');
+            //this.playAudio('dejalo.m4a');
+            this.reproducirNuevoAudio('../../assets/audio/dejalo.m4a');
             setTimeout(() => this.flashlight.switchOff(), 5000);
           } 
           if(acceleration.y < 2 && acceleration.z  > 8 && !this.isHorizontal) {
@@ -145,7 +166,8 @@ export class HomePage {
             this.isHorizontal = true;
             this.isVertial = false;
             this.vibration.vibrate(5000);
-            this.playAudio('dios.m4a');
+            //this.playAudio('dios.m4a');
+            this.reproducirNuevoAudio('../../assets/audio/dios.m4a');
           }
       }
     );

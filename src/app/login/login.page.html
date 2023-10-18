@@ -1,7 +1,9 @@
 
 
 <ion-content>
-
+  <!-- <div *ngIf="showSplash" class="splash">
+    <div class="spinner"></div>
+  </div> -->
   <div id="idFound" expand="full">
     <div *ngIf="error">
       {{error}}
@@ -40,9 +42,11 @@
       
           <ion-row>
             <ion-col>
-              <ion-button (click)="onLogin(loginForm)" type="submit" expand="block">Ingresar</ion-button>
+              <ion-button (click)="onLogin(loginForm)" type="submit" expand="block" [disabled]="mostrarSpinner">Ingresar</ion-button>
             </ion-col>
           </ion-row>
+
+          <ion-spinner name="crescent" *ngIf="mostrarSpinner" class="full-screen-spinner"></ion-spinner>
 
           <ion-chip>
             <ion-avatar (click)="admin()">

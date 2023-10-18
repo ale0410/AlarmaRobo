@@ -1,7 +1,8 @@
 <platform name="android">
      <preference name="orientation" value="portrait" />
      <splash src="src/assets/icon/alarma.png" />
-         <preference name="SplashScreenDelay" value="6000" />
+         <preference name="SplashScreenDelay" value="3000" />
+         <preference name="SplashScreen" value="screen" />
      </splash>
      
 </platform>
